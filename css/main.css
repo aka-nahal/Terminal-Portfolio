@@ -63,19 +63,19 @@
 }
 
 .project-main-image-1 {
-  background-image: url("https://dummyimage.com/1200x600/424242/636363");
+  background-image: url("/img/portfolio/01.jpg");
 }
 
 .project-main-image-2 {
-  background-image: url("https://dummyimage.com/1200x600/424242/636363");
+  background-image: url("/img/portfolio/01.jpg");
 }
 
 .project-main-image-3 {
-  background-image: url("https://dummyimage.com/1200x600/424242/636363");
+  background-image: url("/img/portfolio/01.jpg");
 }
 
 .menu-image-1 {
-  background-image: url("/img/portfolio/01.jpg");
+  background-image: url("/img/portfolio/02.png");
 }
 
 .media-image-about {
@@ -83,15 +83,15 @@
 }
 
 .media-image-portfolio {
-  background-image: url("https://dummyimage.com/960x1440/636363/ffffff");
+  background-image: url("/img/portfolio/01.jpg");
 }
 
 .media-image-contact {
-  background-image: url("https://dummyimage.com/960x1440/636363/ffffff");
+  background-image: url("/img/portfolio/03.png");
 }
 
 .showreel-image-1 {
-  background-image: url("https://dummyimage.com/1400x700/3a3a3a/7d7d7d");
+  background-image: url("/img/portfolio/01.jpg");
 }
 
 .contactdata-item-1 {
