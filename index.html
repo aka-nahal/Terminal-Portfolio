@@ -1267,6 +1267,172 @@
       // Add to document head
       document.head.appendChild(link);
     });
+
+    // Update title and add mobile support
+    document.addEventListener('DOMContentLoaded', function() {
+      // Change document title
+      document.title = "Lone Detective Portal";
+      
+      // Add viewport meta tag with proper settings if not already present
+      let viewportMeta = document.querySelector('meta[name="viewport"]');
+      if (!viewportMeta) {
+        viewportMeta = document.createElement('meta');
+        viewportMeta.name = 'viewport';
+        document.head.appendChild(viewportMeta);
+      }
+      viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+      
+      // Add mobile detection
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+      
+      // Add mobile class to body if on mobile device
+      if (isMobile) {
+        document.body.classList.add('mobile');
+        
+        // Adjust terminal for mobile
+        const terminal = document.querySelector('.terminal-overlay');
+        if (terminal) {
+          terminal.style.fontSize = '14px';
+        }
+        
+        // Make command input more touch-friendly
+        const commandInput = document.getElementById('command-input');
+        if (commandInput) {
+          commandInput.style.fontSize = '16px'; // Prevent zoom on iOS
+          commandInput.style.height = '40px';
+        }
+        
+        // Adjust radar size for mobile
+        const crossContainer = document.querySelector('.cross-container');
+        if (crossContainer) {
+          crossContainer.style.width = '250px';
+          crossContainer.style.height = '250px';
+        }
+        
+        // Show mobile navigation
+        const mobileNav = document.querySelector('.mobile-nav');
+        if (mobileNav) {
+          mobileNav.style.display = 'block';
+        }
+      }
+      
+      // Handle orientation changes
+      window.addEventListener('orientationchange', function() {
+        setTimeout(function() {
+          // Recalculate sizes based on new orientation
+          const newWidth = window.innerWidth;
+          const newHeight = window.innerHeight;
+          
+          // Update any canvas elements
+          const canvases = document.querySelectorAll('canvas');
+          canvases.forEach(canvas => {
+            canvas.width = newWidth;
+            canvas.height = newHeight;
+          });
+          
+          // Adjust terminal size
+          const terminal = document.querySelector('.terminal');
+          if (terminal) {
+            terminal.style.height = (newHeight * 0.6) + 'px';
+          }
+          
+          // Reposition elements
+          if (isMobile) {
+            // Portrait mode
+            if (newWidth < newHeight) {
+              document.body.classList.add('portrait');
+              document.body.classList.remove('landscape');
+            } 
+            // Landscape mode
+            else {
+              document.body.classList.add('landscape');
+              document.body.classList.remove('portrait');
+            }
+          }
+        }, 300); // Small delay to ensure dimensions are updated
+      });
+      
+      // Handle window resize for desktop
+      window.addEventListener('resize', function() {
+        if (!isMobile) {
+          // Update layout based on new window size
+          const newWidth = window.innerWidth;
+          const newHeight = window.innerHeight;
+          
+          // Adjust main content area
+          const main = document.querySelector('main');
+          if (main) {
+            main.style.height = (newHeight - 100) + 'px';
+          }
+          
+          // Adjust side panel
+          const aside = document.querySelector('aside');
+          if (aside && newWidth < 1200) {
+            aside.style.width = '300px';
+          } else if (aside) {
+            aside.style.width = '400px';
+          }
+        }
+      });
+      
+      // Add touch support for radar
+      const radar = document.querySelector('.cross-container');
+      if (radar) {
+        // Add touch event listeners
+        radar.addEventListener('touchstart', function(e) {
+          e.preventDefault(); // Prevent default touch behavior
+          this.classList.add('active');
+        });
+        
+        radar.addEventListener('touchend', function() {
+          this.classList.remove('active');
+          // Trigger click event to maintain functionality
+          this.click();
+        });
+      }
+      
+      // Add swipe detection for mobile
+      let touchStartX = 0;
+      let touchStartY = 0;
+      
+      document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, false);
+      
+      document.addEventListener('touchend', function(e) {
+        const touchEndX = e.changedTouches[0].screenX;
+        const touchEndY = e.changedTouches[0].screenY;
+        
+        const diffX = touchStartX - touchEndX;
+        const diffY = touchStartY - touchEndY;
+        
+        // Detect horizontal swipe
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+          // Swipe left
+          if (diffX > 0) {
+            // Show terminal on swipe left
+            const terminal = document.querySelector('.terminal-overlay');
+            if (terminal) {
+              terminal.style.display = 'block';
+              terminal.style.opacity = '1';
+              document.getElementById('command-input').focus();
+            }
+          } 
+          // Swipe right
+          else {
+            // Hide terminal on swipe right
+            const terminal = document.querySelector('.terminal-overlay');
+            if (terminal && terminal.style.opacity === '1') {
+              terminal.style.opacity = '0';
+              setTimeout(() => {
+                terminal.style.display = 'none';
+              }, 300);
+            }
+          }
+        }
+      }, false);
+    });
   </script>
 </body>
 </html>
