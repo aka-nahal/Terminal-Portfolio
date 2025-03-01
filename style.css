@@ -97,15 +97,10 @@
   }
   
   .logo {
-    color: #00FF00;
-    font-weight: 500;
-    font-size: 1.8rem;
-    letter-spacing: 1px;
     display: flex;
     align-items: center;
-    opacity: 0;
+    opacity: 1;
     animation: fadeInRight 0.8s ease forwards, glowPulse 3s infinite;
-    animation-delay: 0.3s;
   }
   
   .logo::before {
@@ -893,18 +888,46 @@
   }
   
   .logo-text-main {
-    font-size: 1.8rem;
+    color: #00FF00;
+    font-weight: 500;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
   }
   
   .logo-text-sub {
-    font-size: 0.8rem;
-    color: #00AA00;
-    display: block;
+    color: #00FF00;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
   }
   
   @media (max-width: 768px) {
+    .logo-text-main {
+      font-size: 1.2rem;
+    }
+    
+    .logo-text-sub {
+      font-size: 0.6rem;
+    }
+    
+    .incognito-logo {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+  @media (max-width: 480px) {
     .logo-text-sub {
       display: none;
+    }
+    
+    .logo-text-main {
+      font-size: 1rem;
+    }
+    
+    .incognito-logo {
+      width: 25px;
+      height: 25px;
     }
   }
   
@@ -1616,5 +1639,21 @@
     
     .map-info-panel.active {
       transform: translateY(0);
+    }
+  }
+
+  /* Incognito logo styling */
+  .incognito-logo {
+    margin-right: 15px;
+    filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.7));
+    animation: logoGlow 3s infinite alternate;
+  }
+
+  @keyframes logoGlow {
+    0% {
+      filter: drop-shadow(0 0 3px rgba(0, 255, 0, 0.5));
+    }
+    100% {
+      filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.9));
     }
   }
