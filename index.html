@@ -1213,6 +1213,60 @@
       // Expose processCommand to global scope for external access
       window.processCommand = processCommand;
     });
+
+    // Create and add favicon dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create a canvas to draw the favicon
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      
+      // Draw background
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, 64, 64);
+      
+      // Draw hat
+      ctx.fillStyle = '#00FF00';
+      ctx.beginPath();
+      ctx.moveTo(32, 8);  // Top center
+      ctx.lineTo(16, 20); // Left edge
+      ctx.lineTo(12, 40); // Bottom left
+      ctx.lineTo(52, 40); // Bottom right
+      ctx.lineTo(48, 20); // Right edge
+      ctx.closePath();
+      ctx.fill();
+      
+      // Draw glasses
+      ctx.beginPath();
+      ctx.moveTo(16, 32);
+      ctx.lineTo(48, 32);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#00FF00';
+      ctx.stroke();
+      
+      // Draw eyes
+      ctx.fillStyle = '#00FF00';
+      ctx.beginPath();
+      ctx.arc(24, 32, 4, 0, Math.PI * 2);
+      ctx.fill();
+      
+      ctx.beginPath();
+      ctx.arc(40, 32, 4, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Convert canvas to favicon URL
+      const faviconUrl = canvas.toDataURL('image/png');
+      
+      // Create link element for favicon
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png';
+      link.href = faviconUrl;
+      
+      // Add to document head
+      document.head.appendChild(link);
+    });
   </script>
 </body>
 </html>
