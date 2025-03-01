@@ -1682,6 +1682,7 @@
     background-color: rgba(0, 50, 0, 0.8);
     border-bottom: 1px solid #00FF00;
     cursor: move;
+    user-select: none;
   }
 
   .game-title {
@@ -1712,17 +1713,22 @@
 
   .game-content {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   #snake-canvas {
     background-color: #111;
     border: 1px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 
   .game-score {
     margin-top: 10px;
     color: #00FF00;
     font-size: 0.9rem;
+    align-self: flex-start;
   }
 
   .game-instructions {
@@ -1988,4 +1994,42 @@
     .mobile .command-line {
       bottom: 50px;
     }
+  }
+
+  /* Touch controls for snake game */
+  .touch-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+  }
+
+  .touch-btn-row {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    margin: 5px 0;
+  }
+
+  .touch-btn {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 50, 0, 0.8);
+    border: 1px solid #00FF00;
+    color: #00FF00;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .touch-btn:active {
+    background-color: rgba(0, 100, 0, 0.8);
+  }
+
+  .touch-btn.left, .touch-btn.right {
+    width: 60px;
   }
